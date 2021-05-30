@@ -12,6 +12,7 @@ interface Task {
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   function handleAddTask(newTaskTitle: string) {
     const data = {
@@ -37,14 +38,18 @@ export function Home() {
 
   return (
     <>
-      <Header />
+      <Header
+        isDark={isDarkTheme}
+        changeTheme={() => setIsDarkTheme(!isDarkTheme)}
+      />
 
-      <TodoInput addTask={handleAddTask} />
+      <TodoInput addTask={handleAddTask} isDark={isDarkTheme} />
 
       <MyTasksList
         tasks={tasks}
         onPress={handleMarkTaskAsDone}
         onLongPress={handleRemoveTask}
+        isDark={isDarkTheme}
       />
     </>
   );
